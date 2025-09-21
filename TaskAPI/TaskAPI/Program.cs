@@ -1,10 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using TaskAPI.Models;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<AppContextDb>(opt =>
+    opt.UseInMemoryDatabase("UserTask"));
 
 var app = builder.Build();
 
