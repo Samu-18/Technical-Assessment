@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+//In Memory for Part 1
 builder.Services.AddDbContext<AppContextDb>(opt =>
     opt.UseInMemoryDatabase("UserTask"));
 
