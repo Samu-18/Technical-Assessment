@@ -104,5 +104,50 @@ namespace TaskAPI.Controllers
         {
             return _context.Tasks.Any(e => e.Id == id);
         }
+
+        //Filtering
+        // GET: api/Tasks/expired
+        /// All tasks with a DueDate in the past 
+        [HttpGet("expired")]
+        public async System.Threading.Tasks.Task<ActionResult<IEnumerable<TaskEntity>>> GetExpired()
+        {
+            var now = DateTime.UtcNow;
+            return await _context.Tasks
+                .Where(t => t.DueDate != null && t.DueDate < now)
+                .ToListAsync();
+        }
+
+        // GET: api/Tasks/active
+        /// All tasks not expired
+        [HttpGet("active")]
+        public async System.Threading.Tasks.Task<ActionResult<IEnumerable<TaskEntity>>> GetActive()
+        {
+            var now = DateTime.UtcNow;
+            return await _context.Tasks
+                .Where(t => t.DueDate == null || t.DueDate >= now)
+                .ToListAsync();
+        }
+
+        // GET: api/Tasks/from/2025/09/01
+        /// All tasks with DueDate on or after the given date 
+        [HttpGet("from/{yyyy:int:min(2000)}/{mm:int:range(1,12)}/{dd:int:range(1,31)}")]
+        public async System.Threading.Tasks.Task<ActionResult<IEnumerable<TaskEntity>>> GetFrom(int yyyy, int mm, int dd)
+        {
+            var date = new DateTime(yyyy, mm, dd, 0, 0, 0, DateTimeKind.Utc);
+            return await _context.Tasks
+                .Where(t => t.DueDate != null && t.DueDate >= date)
+                .ToListAsync();
+        }
+
+        // GET: api/Tasks/by-user/5
+        /// All tasks assigned to a specific user (by UserId)
+        [HttpGet("by-user/{userId:int}")]
+        public async System.Threading.Tasks.Task<ActionResult<IEnumerable<TaskEntity>>> GetByUser(int userId)
+        {
+            return await _context.Tasks
+                .Where(t => t.AssigneeUserId == userId)
+                .ToListAsync();
+        }
+
     }
 }
