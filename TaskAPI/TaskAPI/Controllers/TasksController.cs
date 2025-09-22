@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskAPI.Models;
+using TaskEntity = TaskAPI.Models.Task;
 
 namespace TaskAPI.Controllers
 {
@@ -22,14 +23,14 @@ namespace TaskAPI.Controllers
 
         // GET: api/Tasks
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Task>>> GetTasks()
+        public async Task<ActionResult<IEnumerable<TaskEntity>>> GetTasks()
         {
             return await _context.Tasks.ToListAsync();
         }
 
         // GET: api/Tasks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Task>> GetTask(int id)
+        public async Task<ActionResult<TaskEntity>> GetTask(int id)
         {
             var task = await _context.Tasks.FindAsync(id);
 
@@ -44,7 +45,7 @@ namespace TaskAPI.Controllers
         // PUT: api/Tasks/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTask(int id, Task task)
+        public async Task<IActionResult> PutTask(int id, TaskEntity task)
         {
             if (id != task.Id)
             {
@@ -75,7 +76,7 @@ namespace TaskAPI.Controllers
         // POST: api/Tasks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Task>> PostTask(Task task)
+        public async Task<ActionResult<TaskEntity>> PostTask(TaskEntity task)
         {
             _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
