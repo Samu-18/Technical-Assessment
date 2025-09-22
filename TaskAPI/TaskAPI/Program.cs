@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using TaskAPI.Models;
-//using TaskAPI.Repositories;
+using TaskAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ builder.Services.AddDbContext<AppContextDb>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 
 // Repo pattern 
-//builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
