@@ -1,0 +1,39 @@
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+# OS junk
+Thumbs.db
+.DS_Store
+
+# Editors (optional)
+.idea/
+.vscode/
+
+# ASP.NET local settings
+appsettings.Development.json
+*.local.json
+
+# User secrets (if any)
+**/secrets.json
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# Publish artifacts
+*.pubxml
+*.pubxml.user
+*.Publish.xml
+
+# EF Core
+# KEEP migrations (including *.Designer.cs) in source control
